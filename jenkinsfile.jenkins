@@ -1,0 +1,47 @@
+pipeline {
+    agent any
+    
+    environment {
+        PROJECT_NAME = "Neptun"
+        OWNER_NAME = "Darth Vayder"
+    }
+
+    stages {
+        stage('1-build') {
+            steps {
+                echo 'Start of stage build'
+                echo 'Building....'
+                echo 'End of stage build'
+                sh "ls -la"
+            }
+        }
+        
+        stage('2-Test') {
+            steps {
+                echo 'Start of Test build'
+                echo 'Building....'
+                echo "Hello ${OWNER_NAME}"
+                echo "This is project ${PROJECT_NAME}"
+                echo 'End of stage build'
+                sleep 10
+            }
+        }
+        stage('3-Deploy') {
+            steps {
+                echo 'Start of Deploy build'
+                echo 'Building....'
+                echo 'End of stage build'
+                sh '''
+                   echo "Line 1"
+                   echo "privet"
+                '''
+                            }
+        }    
+        stage('4-Celebrate') {
+            steps {
+                echo "CONGRADULATION!"
+            
+            }
+        }    
+   }
+}
