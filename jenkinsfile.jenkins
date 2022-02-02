@@ -34,7 +34,8 @@ pipeline {
             steps {
                 echo " ============== start pushing image =================="
                 sh '''
-                docker build -t dagora77/httpd:latest -t dagora77/httpd:v1.0
+                docker build -t dagora77/httpd:latest
+                docker build -t dagora77/httpd:v1.0
                 '''
             }
         }
