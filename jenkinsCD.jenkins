@@ -1,7 +1,7 @@
 #!groovy
 // Run docker build
 
-def dockerRun = 'docker run -d dagora77/httpd:${version}'
+def dockerRun = 'docker run -d dagora77/httpd:${version} -p 8080:3000'
 properties([disableConcurrentBuilds()])
 
 pipeline {
