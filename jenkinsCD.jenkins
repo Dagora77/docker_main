@@ -1,0 +1,51 @@
+#!groovy
+// Run docker build
+def dockerRun = 'docker run dagora77/httpd:latest'
+properties([disableConcurrentBuilds()])
+
+pipeline {
+    agent { 
+        label 'master'
+        }
+    triggers { pollSCM('* * * * *') }
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
+        timestamps()
+    }
+    stages {
+        stage("docker login") {
+            steps {
+                echo " ============== docker login =================="
+                withCredentials([usernamePassword(credentialsId: 'DockerHub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                    sh """
+                    docker login -u $USERNAME -p $PASSWORD
+                    """
+                }
+            }
+        }
+        stage("create docker image") {
+            steps {
+                echo " ============== start building image =================="
+                dir ('Docker') {
+                	sh 'docker build -t dagora77/httpd:latest -t dagora77/httpd:$BUILD_NUMBER . '
+                }
+            }
+        }
+        stage("docker push") {
+            steps {
+                echo " ============== start pushing image =================="
+                sh '''
+                docker push dagora77/httpd:latest
+                docker push dagora77/httpd:$BUILD_NUMBER
+                '''
+            }
+        }
+        stage("Run Container on Dev Server") {
+            steps {
+                
+                sshagent(['prod-qa-env']) {
+                sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.91.163 ${dockerRun}"}
+            }
+       }
+    }
+}
