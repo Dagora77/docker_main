@@ -26,7 +26,7 @@ pipeline {
             steps {
                 echo " ============== start building image =================="
                 dir ('Docker') {
-                	sh 'docker build -t dagora77/httpd:latest -t dagora77/httpd:$BUILD_NUMBER . '
+                	sh 'docker build -t dagora77/httpd:latest -t dagora77/httpd:v1.0 . '
                 }
             }
         }
@@ -35,7 +35,7 @@ pipeline {
                 echo " ============== start pushing image =================="
                 sh '''
                 docker push dagora77/httpd:latest
-                docker push dagora77/httpd:$BUILD_NUMBER
+                docker push dagora77/httpd:v1.0
                 '''
             }
         }
