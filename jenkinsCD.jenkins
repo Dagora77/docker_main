@@ -1,5 +1,6 @@
 #!groovy
 // Run docker build
+def destinationIP = 172.31.91.163
 def dockerRun = 'docker run -d dagora77/httpd:latest'
 properties([disableConcurrentBuilds()])
 
@@ -43,7 +44,7 @@ pipeline {
             steps {
                 
                 sshagent(['prod-qa-env']) {
-                sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.91.163 ${dockerRun}"}
+                    sh "ssh -o StrictHostKeyChecking=no ec2-user@${destinationIP} ${dockerRun}"}
             }
        }
     }
