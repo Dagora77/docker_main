@@ -1,6 +1,6 @@
 #!groovy
 // Run docker build
-def destinationIP = 172.31.91.163
+def destinationIP = '172.31.91.163'
 def dockerRun = 'docker run -d dagora77/httpd:latest'
 properties([disableConcurrentBuilds()])
 
