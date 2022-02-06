@@ -10,7 +10,8 @@ script {
            def destinationIP = '172.31.91.133'
       } else {
           echo 'I execute elsewhere'
-      }
+      } 
+ }
 
 
 
