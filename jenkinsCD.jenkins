@@ -54,7 +54,7 @@ pipeline {
                     } else {
                         echo 'Something go wrong'
                     }
-                
+                }
                 
             }
        }
