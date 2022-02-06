@@ -1,6 +1,21 @@
 #!groovy
 // Run docker build
-def destinationIP = '172.31.91.163'
+
+script {
+     if (env.build_env == 'prod-qa-env') {
+           echo 'Running in qa env' 
+           def destinationIP = '172.31.91.163'
+      } else if (env.build_env == 'prod-dev-env') {
+           echo 'I Vasya'
+           def destinationIP = '172.31.91.133'
+      } else {
+          echo 'I execute elsewhere'
+      }
+
+
+
+
+
 def dockerRun = 'docker run -d dagora77/httpd:latest'
 properties([disableConcurrentBuilds()])
 
