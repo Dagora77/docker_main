@@ -46,7 +46,10 @@ pipeline {
                 script {
                     if (env.build_env == 'prod-qa-env') {
                         sshagent(['prod-qa-env']) {
-                        sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.91.163 ${dockerRun}"}
+                        sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.91.163 ${dockerRun}"
+                        sh "echo 'Waiting for container start'"
+                        sh "sleep 15"
+                        sh "curl 172.31.91.163"}
                     
                     } else if (env.build_env == 'prod-dev-env') {
                         sshagent(['prod-qa-env']) {
