@@ -1,3 +1,3 @@
 FROM httpd:2.4
 RUN apt update -y && apt upgrade -y && apt autoremove -y && apt clean 
-EXPOSE 80
+EXPOSE 3000
