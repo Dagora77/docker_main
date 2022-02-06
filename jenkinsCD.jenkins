@@ -1,7 +1,7 @@
 #!groovy
 // Run docker build
 
-def dockerRun = 'docker run -d dagora77/httpd:latest'
+def dockerRun = 'docker run -d dagora77/httpd:env.version'
 properties([disableConcurrentBuilds()])
 
 pipeline {
@@ -52,7 +52,7 @@ pipeline {
                         sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.91.163 ${dockerRun}"}
                     
                     } else {
-                        echo 'Something go wrong'
+                        echo 'Something went wrong'
                     }
                 }
                 
