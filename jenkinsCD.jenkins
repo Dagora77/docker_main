@@ -50,7 +50,7 @@ pipeline {
                         sh "echo 'Waiting for container start'"
                         sh "sleep 15"
                         sh "curl 172.31.91.163:1234"
-                        sh "echo 'Test passed'}
+                        sh "echo 'Test passed'"}
                     
                     } else if (env.build_env == 'prod-dev-env') {
                         sshagent(['prod-qa-env']) {
