@@ -40,8 +40,9 @@ pipeline {
                 '''
             }
         }
-        stage("Run Container on Dev Server") {
+        stage("Docker run") {
             steps {
+                echo "============== run docker container =================="
                 script {
                     if (env.build_env == 'prod-qa-env') {
                         sshagent(['prod-qa-env']) {
