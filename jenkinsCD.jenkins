@@ -42,9 +42,20 @@ pipeline {
         }
         stage("Run Container on Dev Server") {
             steps {
+                script {
+                    if (env.build_env == 'prod-qa-env') {
+                        sshagent(['prod-qa-env']) {
+                        sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.91.163 ${dockerRun}"}
+                    
+                    } else if (env.build_env == 'prod-dev-env') {
+                        sshagent(['prod-qa-env']) {
+                        sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.91.163 ${dockerRun}"}
+                    
+                    } else {
+                        echo 'Something go wrong'
+                    }
                 
-                sshagent(['prod-qa-env']) {
-                    sh "ssh -o StrictHostKeyChecking=no ec2-user@prod-qa-env ${dockerRun}"}
+                
             }
        }
     }
