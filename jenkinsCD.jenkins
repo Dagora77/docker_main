@@ -1,13 +1,12 @@
 #!groovy
 // Run docker build
-def dockerRun = 'docker run dagora77/httpd:latest'
+def dockerRun = 'docker run -d dagora77/httpd:latest'
 properties([disableConcurrentBuilds()])
 
 pipeline {
     agent { 
         label 'master'
         }
-    triggers { pollSCM('* * * * *') }
     options {
         buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
         timestamps()
