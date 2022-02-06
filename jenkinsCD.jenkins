@@ -44,7 +44,7 @@ pipeline {
             steps {
                 
                 sshagent(['prod-qa-env']) {
-                    sh "ssh -o StrictHostKeyChecking=no ec2-user@env.build_env ${dockerRun}"}
+                    sh "ssh -o StrictHostKeyChecking=no ec2-user@prod-qa-env ${dockerRun}"}
             }
        }
     }
