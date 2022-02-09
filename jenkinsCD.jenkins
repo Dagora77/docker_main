@@ -62,6 +62,7 @@ pipeline {
               script {
                   if (env.build_env == 'prod-qa-env') {
                         sshagent(['prod-qa-env']) {
+                        sh "sleep 10"
                         sh "docker container stop ${BUILD_ID} && docker container rm ${BUILD_ID}"
                         }
                     
