@@ -35,6 +35,48 @@ pipeline {
                 }
                 
             }
-       }
+        }
+       stage("Docker test") { 
+          steps {
+              echo "============== test docker container =================="
+              script {
+                  if (env.build_env == 'prod-qa-env') {
+                        sshagent(['prod-qa-env']) {
+                        sh "curl 172.31.91.163:1234"
+                        sh "echo 'Test passed'"
+                        }
+                    
+                    } else if (env.build_env == 'prod-dev-env') {
+                        sshagent(['prod-qa-env']) {
+                        sh "curl 172.31.91.163:1234"
+                        sh "echo 'Test passed'"
+                        }
+                    
+                    } else {
+                        echo 'Something went wrong'
+                    }
+              }
+          }
+      } 
+      stage("Stop Docker") {
+          steps {
+              echo "============== stop docker container =================="
+              script {
+                  if (env.build_env == 'prod-qa-env') {
+                        sshagent(['prod-qa-env']) {
+                        sh "docker stop ${Docker_image_version}"
+                        }
+                    
+                    } else if (env.build_env == 'prod-dev-env') {
+                        sshagent(['prod-qa-env']) {
+                        sh "docker stop ${Docker_image_version}"
+                        }
+                    
+                    } else {
+                        echo 'Something went wrong'
+                    }
+              }
+          }
+      }    
     }
 }
