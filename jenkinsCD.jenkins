@@ -63,12 +63,12 @@ pipeline {
               script {
                   if (env.build_env == 'prod-qa-env') {
                         sshagent(['prod-qa-env']) {
-                        sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.91.163 ${dockerRm}
+                        sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.91.163 ${dockerRm}"
                         }
                     
                     } else if (env.build_env == 'prod-dev-env') {
                         sshagent(['prod-qa-env']) {
-                        sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.91.163 ${dockerRm}
+                        sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.91.163 ${dockerRm}"
                         }
                     
                     } else {
