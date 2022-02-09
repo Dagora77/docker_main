@@ -1,8 +1,8 @@
 #!groovy
 // Run docker build
 
-def dockerRun = 'docker run --name apache -d -p 1234:80 ${Docker_image_version}'
-def dockerRm = 'sh "docker container stop apache && docker container rm apache"'
+def dockerRun = 'docker run --name apache_${BUILD_ID} -d -p 1234:80 ${Docker_image_version}'
+def dockerRm = 'docker container stop apache_${BUILD_ID} && docker container rm apache_${BUILD_ID}'
 properties([disableConcurrentBuilds()])
 
 pipeline {
