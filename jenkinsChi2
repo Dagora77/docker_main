@@ -60,7 +60,7 @@ pipeline {
                         env.DILS = sh (script: 'docker image ls | wc -l', returnStdout: true).trim()
                         }
                        script{
-                          if ( env.DILS >= 5 ){
+                          if ( env.DILS == '6' ){
                               sh 'docker rmi ctc:v.$(($(cat /var/lib/jenkins/workspace/version_var)-1))'
                     
                 }
@@ -79,8 +79,8 @@ pipeline {
                         }
                       } else {
                       echo "==== Something went wrong ===="
-                      sh "==== Removing failed container and starting the previous one ===="
-                      sh 'docker stop CtC:test && docker rm CtC_test'
+                      echo "==== Removing failed container and starting the previous one ===="
+                      sh 'docker stop CtC_test && docker rm CtC_test'
                       sh 'docker start CtC'
                       sh 'sleep 30'
                       script{
